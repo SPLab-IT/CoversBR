@@ -6,3 +6,21 @@ Use **CoversBR_download.py** to download all feature files from CoversBR databas
 Script witten for Python 3.x
 To run:
 python CoversBR_download.py
+
+## Database Metadata
+File **ObraInfoProcessada_v1.csv** contains a semicolon (;) separated table of the CoversBR database.
+First line is the header line, with the following meaning:
+* work_id           - Music or musical work ID (also called group or clique)
+* Music_Name        - Music name
+* track_id          - Track ID (also called execution or song)
+* Artist_Name       - Artist name of the song player 
+* Source            - Source of the recording 
+* Genre_ECAD        - Music genre as classified by ECAD
+* Recording_Version - Track recording version
+* Duration          - Track duration (HH:MM:SS.SS)
+* Fs                - Track sampling frquency
+* MBID              - Track MusicBrainz ID
+
+## Database Annotations
+File **CoversBR_annotations.csv** is a comma separated tabel of the database annotations, in the format used by Acoss (https://github.com/furkanyesiler/acoss).
+First line is the header line.
