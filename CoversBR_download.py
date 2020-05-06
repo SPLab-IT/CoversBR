@@ -21,7 +21,6 @@ Writen for Python 3.x
 Depends on the libraries:
 """
 import requests
-import wget
 import os
 import base64
 import argparse
