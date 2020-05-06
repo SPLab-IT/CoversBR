@@ -21,6 +21,4 @@ First line is the header line, with the following meaning:
 * Fs                - Track sampling frquency
 * MBID              - Track MusicBrainz ID
 
-## Database Annotations
-File **CoversBR_annotations.csv** is a comma separated tabel of the database annotations, in the format used by Acoss (https://github.com/furkanyesiler/acoss).
-First line is the header line.
+
