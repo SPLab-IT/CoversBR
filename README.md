@@ -8,7 +8,7 @@ To run:
 python CoversBR_download.py
 
 ## Database Metadata
-File **CoversBR_metadata.csv** contains a semicolon (;) separated table of the CoversBR database. **CoversBR_metadata.xls** is the MS Excell version of this file.
+File **CoversBR_metadata.csv** contains a semicolon (;) separated table of the CoversBR database. **CoversBR_metadata.xlsx** is the MS Excell version of this file.
 First line is the header line, with the following meaning:
 * work_id           - Music or musical work ID (also called group or clique)
 * Music_Name        - Music name
