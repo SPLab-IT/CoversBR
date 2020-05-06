@@ -22,32 +22,38 @@ Depends on the libraries:
 """
 import requests
 import os
+import sys
 import base64
 import argparse
 
 
 def Dl_file(s, fchild, local_folder_name):
+	CHUNK_SIZE = 4096
+	PROGRESS_BAR_SIZE = 50
 	fname = fchild['name']
 	fsize = fchild['size']
 	dl_url = fchild['@content.downloadUrl']
 	out_path_file_name = local_folder_name+"/"+fname
-	if os.path.exists(out_path_file_name):
+	if os.path.exists(out_path_file_name) and (os.stat(out_path_file_name).st_size==fsize):
 		print("File %s already downloaded. Skipping..."%out_path_file_name)
 	else:
 		print("Downloading file %s, with %d bytes, to folder %s"%(fname, fsize, local_folder_name))
-		# Using wget (not working with some file/folder names:
-		"""
-		fname_dl = wget.download(dl_url,out=out_path_file_name)
-		print("\n")
-		"""
 		# Using requests:
-		fcontent = s.get(dl_url, allow_redirects=True)
-		received_size = len(fcontent.content)
-		if received_size == fsize:
-			open(out_path_file_name, 'wb').write(fcontent.content)
-			print(" OK - %d bytes received"%received_size)
-		else:
-			print("Error downloading %s: expected %d bytes, received %d bytes"%(out_path_file_name, fsize, received_size))
+		# Modifications to print  progress bar with an + for each 2% download, 
+		fcontent = s.get(dl_url, allow_redirects=True, stream=True)
+		with open(out_path_file_name, "wb") as f:
+			received_size = 0
+			fsize = int(fsize)
+			for data in fcontent.iter_content(chunk_size=CHUNK_SIZE):
+				received_size += len(data)
+				f.write(data)
+				done = int(PROGRESS_BAR_SIZE * received_size / fsize)
+				sys.stdout.write("\r[%s%s] - %s / %s" % ('+' * done, '-' * (PROGRESS_BAR_SIZE-done), received_size, fsize) )
+				sys.stdout.flush()
+			if received_size == fsize:
+				print("\n OK - %d bytes received"%received_size)
+			else:
+				print("Error downloading %s: expected %d bytes, received %d bytes"%(out_path_file_name, fsize, received_size))
 
 def Dl_child(s, child, remote_folder_name, local_folder):
 	folder_name = child["name"]
