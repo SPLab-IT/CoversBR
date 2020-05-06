@@ -3,9 +3,15 @@ Tools to access and download the CoversBR Dataset.
 
 ## Downloading feature files
 Use **CoversBR_download.py** to download all feature files from CoversBR database.
-Script witten for Python 3.x
+Script witten for Python 3.5.x
+Uses python modules:
+- argparse
+- base64
+- requests
 To run:
 python CoversBR_download.py
+OR
+python CoversBR_download.py -url"<URL oof shared OneDrive folder to be downloaded"
 
 ## Database Metadata
 File **CoversBR_metadata.csv** contains a semicolon (;) separated table of the CoversBR database. **CoversBR_metadata.xlsx** is the MS Excell version of this file.
