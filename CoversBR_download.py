@@ -1,6 +1,7 @@
 """
 CoversBR_download.py
 Developed by Atila Xavier, 01/05/2020, as a tool to download all feature files of the CoversBR database (HDF5 format)
+shared_url = 'https://1drv.ms/u/s!AocykQAvhWc9ax_8RRkxKELRnSs?e=Z443ZC'
 Files are downloaded from a public repository, and will be saved with the same structure as the source, on the folder where this script is executed.
 Structure is:
 .
@@ -23,36 +24,102 @@ import requests
 import wget
 import os
 import base64
+import argparse
 
-shared_url = 'https://1drv.ms/u/s!AocykQAvhWc9ax_8RRkxKELRnSs?e=Z443ZC'
-shared_url_b64 = base64.urlsafe_b64encode(shared_url.encode('ascii')).decode('ascii')
-url_base = "https://api.onedrive.com/v1.0/shares/u!"+shared_url_b64	+"/root"
-str_root= "?expand=children"
-url = url_base+str_root
-myroot = requests.get(url)
-data = myroot.json()
-child_count = data["folder"]["childCount"] 
-children = data["children"] 
-print("\nDownloading files from %d folders"%(child_count))
-for i in range(child_count):
-	folder_name = children[i]["name"]
-	str_child = ":/"+folder_name+":/children"
+
+def Dl_file(s, fchild, local_folder_name):
+	fname = fchild['name']
+	fsize = fchild['size']
+	dl_url = fchild['@content.downloadUrl']
+	out_path_file_name = local_folder_name+"/"+fname
+	if os.path.exists(out_path_file_name):
+		print("File %s already downloaded. Skipping..."%out_path_file_name)
+	else:
+		print("Downloading file %s, with %d bytes, to folder %s"%(fname, fsize, local_folder_name))
+		# Using wget (not working with some file/folder names:
+		"""
+		fname_dl = wget.download(dl_url,out=out_path_file_name)
+		print("\n")
+		"""
+		# Using requests:
+		fcontent = s.get(dl_url, allow_redirects=True)
+		received_size = len(fcontent.content)
+		if received_size == fsize:
+			open(out_path_file_name, 'wb').write(fcontent.content)
+			print(" OK - %d bytes received"%received_size)
+		else:
+			print("Error downloading %s: expected %d bytes, received %d bytes"%(out_path_file_name, fsize, received_size))
+
+def Dl_child(s, child, remote_folder_name, local_folder):
+	folder_name = child["name"]
+	remote_folder_name = remote_folder_name + "/" + folder_name
+	str_child = ":"+remote_folder_name+":/children"
 	url = url_base+str_child
-	mychild = requests.get(url)
+	mychild = s.get(url)
 	dchild = mychild.json()
 	nfiles = dchild['@odata.count']  #8
-	if not os.path.exists(folder_name):
-		os.mkdir(folder_name)
-	print("\nDownloading %d files from folder %s"%(nfiles, folder_name))
-	for j in range(nfiles):
-		fname = dchild['value'][j]['name']
-		fsize = dchild['value'][j]['size']
-		dl_url = dchild['value'][j]['@content.downloadUrl']
-		out_path_file_name = folder_name+"/"+fname
-		if os.path.exists(out_path_file_name):
-			print("\nFile %s already downloaded. Skipping..."%out_path_file_name)
+	local_folder_name = local_folder+"/"+folder_name
+	if not os.path.exists(local_folder_name):
+		print("Creating folder %s"%local_folder_name)
+		os.mkdir(local_folder_name)
+	print("Downloading %d file(s) from folder %s"%(nfiles, remote_folder_name))
+	for fchild in dchild["value"]:
+		if "folder" in fchild:
+			Dl_child(s, fchild, remote_folder_name, local_folder_name)
 		else:
-			print("\nDownloading file %s, with %d bytes to folder %s"%(fname, fsize, folder_name))
-			fname_dl = wget.download(dl_url,out=out_path_file_name)
+			Dl_file(s, fchild, local_folder_name)
 
 
+if __name__ == '__main__':
+	parser = argparse.ArgumentParser(description=
+				"Downloads all files from a publicly shared onedrive folder via api \
+				to the current folder, replicating the OneDrive folder structure.",
+				formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+	parser.add_argument("-url", action="store",  default = "https://1drv.ms/u/s!AocykQAvhWc9ghh04i3ZpSy6jHsf?e=HutI4W",
+						dest="shared_url", 
+						help="OneDrive shared URL.")
+#CoversBR benchmark
+#https://1drv.ms/u/s!AocykQAvhWc9ghh04i3ZpSy6jHsf?e=HutI4W
+#Covers20k
+#https://1drv.ms/u/s!AocykQAvhWc9ax_8RRkxKELRnSs?e=Z443ZC
+	args_main = parser.parse_args()
+	shared_url = args_main.shared_url
+	shared_url_b64 = base64.urlsafe_b64encode(shared_url.encode('ascii')).decode('ascii')
+	url_base = "https://api.onedrive.com/v1.0/shares/u!"+shared_url_b64	+"/root"
+	str_root= "?expand=children"
+	url = url_base+str_root
+	headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36',
+    'Content-Type': 'text/html',
+	'connection': 'keep-alive',
+	}
+	session = requests.Session()
+	myroot = session.get(url, headers = headers)
+	dt = data = myroot.json()
+	cnt = 0
+	print("Root block info with %s bytes."%myroot.headers['Content-Length'])
+	if "children@odata.nextLink" in data:
+		next_url = data['children@odata.nextLink']
+		exist_next = True
+		while exist_next:
+			r = session.get(next_url, headers = headers)
+			print("Next root block info with %s bytes."%r.headers['Content-Length'])
+			dt = r.json()
+			data['children'].extend(dt['value'])
+			exist_next = "@odata.nextLink" in dt
+			if exist_next:
+				next_url = dt['@odata.nextLink']
+
+	child_count = data["folder"]["childCount"] 
+	children = data["children"] 
+	folder_name = ""
+	local_folder_name = "."
+	print("Downloading %d files/folders from %s"%(child_count, shared_url))
+	dwonloaded_folders_count = 0
+	for child in data["children"]:
+		if "folder" in child:
+			Dl_child(session, child, folder_name, local_folder_name)
+			dwonloaded_folders_count += 1
+		else:
+			Dl_file(session, child, local_folder_name)
+	print("Finished downloading %d folders"%dwonloaded_folders_count)
