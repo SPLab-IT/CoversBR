@@ -8,9 +8,12 @@ Uses python modules:
 - argparse
 - base64
 - requests
+
 To run:
 python CoversBR_download.py
+
 OR
+
 python CoversBR_download.py -url"<URL oof shared OneDrive folder to be downloaded"
 
 ## Database Metadata
