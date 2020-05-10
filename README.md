@@ -14,7 +14,7 @@ python CoversBR_download.py
 
 OR
 
-python CoversBR_download.py -url"<URL oof shared OneDrive folder to be downloaded"
+python CoversBR_download.py -url"<URL of shared OneDrive folder to be downloaded"
 
 ## Database Metadata
 File **CoversBR_metadata.csv** contains a semicolon (;) separated table of the CoversBR database. **CoversBR_metadata.xlsx** is the MS Excell version of this file.
