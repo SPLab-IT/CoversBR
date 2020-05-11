@@ -30,4 +30,7 @@ First line is the header line, with the following meaning:
 * Fs                - Track sampling frquency
 * MBID              - Track MusicBrainz ID
 
+## License
+* The code in this repository is licensed under Apache 2.0
+* The metadata and the pre-extracted features are licensed under CC BY-NC-SA 4.0
 
