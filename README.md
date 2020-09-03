@@ -45,7 +45,7 @@ or even obtain the song from a streaming service. In addition to these codes,
 MBID exists for about 50% of the songs in the database. The table below shows a  
 summary of the CoversBR numbers. 
 
-<center>
+
 |Number of songs with | Quantity|
 |:--------------------|--------:|
 |ISRC | 88926|
@@ -53,7 +53,7 @@ summary of the CoversBR numbers.
 |MBID | 50810|
 |Country | 92744|
 |Year | 88926|
-</center>
+
 
 The nationality and year of the songs were extracted from ISRC and, in cases 
 where it is not available, the country was found from the name of the 
@@ -66,7 +66,7 @@ About 41% of the database is composed of Brazilian music. The table below
 shows the distribution of the songs by country. There are 28 other nationalities in the
 metadata file. The country codes can be found in **CountryList_ISRC.xlsx**
 
-<center>
+
 Country | # Songs | Country | # Songs
 -----|---------:|------|--------:
 BR |42277 |IT |431
@@ -77,12 +77,12 @@ NL |1697 |ES |208
 FR |1245 |DK |164
 SE |710 |CH |141
 AR |505 |Outras |638
-</center>
+
 
 CoversBR has music since 1920, as Canal Street Blues, sung by Louis Armstrong and King Oliver
 in 1923 (ISRC - USFI82300027). The table below shows the distribution of the songs over the years.
 
-<center>
+
 Years |Number of Songs
 -----|---------:
 1920 - 1929 | 44
@@ -95,12 +95,12 @@ Years |Number of Songs
 1990 - 1999 |12178
 2000 - 2009 |35549
 2010 - 2020 |24593
-</center>
+
 
 The absolute frequency of the groups of covers (clicks) in
 function of the number of versions per group (tracks) can be seen below. 
 
-<center>
+
  Number of songs per Clique | Number of Cliques |Percentage
 :----------------------:|----------:|-----------:
 2 | 14607 |55.40 %
@@ -109,7 +109,7 @@ function of the number of versions per group (tracks) can be seen below.
 5 |1782 |6.76 %
 6 - 10 |3132 |11.88 %
 11 - 76 |1304 |4.95 %
-</center>
+
 
 You can see in the table that the most cover groups contain between 2 and 10 versions. 
 Only in some cases there are between 11 and 76 versions per group.
