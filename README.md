@@ -111,7 +111,7 @@ The data shown in the figure correspond to 99% of the songs in the database.
 The main type is Studio, followed by live performances recorded by streaming.
 
 <!--- [](/images/histVersion.png) --->
-<img src="/images/histVersion.png" alt="drawing" width="200"/>
+<img src="/images/histVersion.png" alt="drawing" width="400"/>
 
 For design reasons, such as storage space, quality of compression /
 decompression of audio and royalties, all the songs from the base were recorded in the
@@ -122,15 +122,18 @@ only 0.8%. There are three sources: RADIO CAPTURE, where the songs were obtained
 were provided by music labels; and CD, where the songs were copied
 Compact Disks (CDs).
 
-![](/images/pieSource2.png)
+<!---[](/images/pieSource2.png)--->
+<img src="/images/pieSource2.png" alt="drawing" width="400"/>
 
 Note that many of the songs from the RADIO CAPTURE source were recorded in
 live presentations in noisy environments. The next histogram shows the absolute frequency of the duration of the song, whose average is 240 seconds, its
 standard deviation is 109 seconds and the minimum and maximum is 18 seconds and 28 minutes,
 respectively.
 
-![](/images/histDur.png)
-
+<!---[](/images/histDur.png)--->
+<p align="center">
+<img src="/images/histDur.png" width="400"/>
+</p>
 
 ### Pre-extracted features
 
