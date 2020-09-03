@@ -149,7 +149,7 @@ respectively.
 <img src="/images/histDur.png" width="450"/>
 </p>
 
-##Dataset Structure
+## Dataset Structure
 ### Pre-extracted features
 
 The list of features included in CoversBR can be seen below. All the features are extracted with [acoss](https://github.com/furkanyesiler/acoss/blob/master/acoss/features.py) repository that uses open-source feature extraction libraries such as [Essentia](https://essentia.upf.edu/documentation/), [LibROSA](https://librosa.github.io/librosa/), and [Madmom](https://github.com/CPJKU/madmom).
