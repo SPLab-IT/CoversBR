@@ -19,7 +19,7 @@ a **'work'**. Based on this, the file names of the songs are their unique
 performance IDs (PID, e.g. `22`), and their labels with respect to their 
 cliques are their work IDs (WID, e.g. `14`).
 
-## Structure
+## Dataset Description
 
 ### Database Metadata
 The file **CoversBR_metadata.csv** contains a semicolon (;) separated table of the 
@@ -37,6 +37,8 @@ First line is the header line, with the following meaning:
 * [MBID](https://musicbrainz.org/doc/MusicBrainz_Identifier)             - Track MusicBrainz ID
 * [ISWC](http://iswc.org/)               - International Standard Musical Work Code
 * [ISRC](http://isrc.ifpi.org/)              - International Standard Recording Code
+
+### Dataset Statistics
 
 All songs have their work_id, track_id, name, artist and duration, but 
 the other fields may be empty. The purpose of entering the ISRC and ISWC 
@@ -147,6 +149,7 @@ respectively.
 <img src="/images/histDur.png" width="450"/>
 </p>
 
+##Dataset Structure
 ### Pre-extracted features
 
 The list of features included in CoversBR can be seen below. All the features are extracted with [acoss](https://github.com/furkanyesiler/acoss/blob/master/acoss/features.py) repository that uses open-source feature extraction libraries such as [Essentia](https://essentia.upf.edu/documentation/), [LibROSA](https://librosa.github.io/librosa/), and [Madmom](https://github.com/CPJKU/madmom).
@@ -176,54 +179,107 @@ In `CoversBR` folders, we organize the data based on their respective cliques, a
 	"label": numpy.str_,
 	"track_id": numpy.str_
 }
-
-
 ```
 
+### Dataset directory structure 
 
-## Using the dataset
+#### Feature file
 
-### Requirements
-
-ftp application.
-
-* Python 3.5+
-Python modules:
-- argparse
-- base64
-- requests
-
-### Downloading the data (feature files)
-Use the ftp application to download the whole structure.
-
-Use **CoversBR_download.py** to download all feature files from CoversBR database.
-
-To run:
-python CoversBR_download.py
-
-OR
-
-python CoversBR_download.py -url"<URL of shared OneDrive folder to be downloaded"
-
-## Citing the dataset
-
-Please cite the following [publication](http://archives.ismir.net/ismir2020/paper/???????.pdf) when using the dataset:
-
-> Dirceu Silva, Atila Xavier, Edgard Moraes, Marco Grivet and Fernando Perdigão. CoversBR: A Large Dataset for cover song identification. In Proc. of the 21th Int. Soc. for Music Information Retrieval Conf. (ISMIR), pages ???-???, Montreal, Canada, 2020.
-
-Bibtex version:
+CoversBR uses the same structure of [acoss](https://github.com/furkanyesiler/acoss/blob/master/acoss/):
 
 ```
-@inproceedings{silva2020,
-    author = "Dirceu Silva, Atila Xavier, Edgard Moraes, Marco Grivet and Fernando Perdig{\~{a}}o",
-    title = "{CoversBR}: A Large Dataset for cover song identification",
-    booktitle = "Proc. of the 21th Int. Soc. for Music Information Retrieval Conf. (ISMIR)",
-    year = "2020",
-    pages = "???--???",
-    address = "Montreal, Canada"
+feature_dir
+    /work_id
+        /track_id.h5 
+```   
+
+```python
+import deepdish as dd
+
+feature = dd.load("feature_file.h5")
+```
+
+An example feature file will be in the following structure.
+
+ ```
+{
+    'feature_1': [],
+    'feature_2': [],
+    'feature_3': {'type_1': [], 'type_2': [], ...},
+    ......  
 }
 ```
 
+#### CSV annotation file for a dataset
+
+The csv annotation file is differente from acoss pattern. Here there are more fields in csv with the folowing structure:
+
+| work_id | Music_Name | track_id | Artist_Name | Source | Genre_ECAD | Recording_Version | Duration| Fs | MBID| ISWC| ISRC| Country| Year| 
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ----| ---- | ----| ----| ----| ----| ----|
+|1|ADMIRAVEL GADO NOVO|19629|CASSIA ELLER|CD|ND|STUDIO|00:04:35.07|11025|8311499a-4e40-4afc-a826-6725d8454851|T0391535844|BRPGD9600090|BR|96| 
+|1|ADMIRAVEL GADO NOVO|23880|ZE RAMALHO|CD|ND|STUDIO|00:05:06.69|11025|1ec54f25-7525-480a-b7fa-4c79fc2ee05f|T0391535844|BRBMG9700282|BR|97|
+|1|ADMIRAVEL GADO NOVO|579191|BIQUINI CAVADAO|IMPORTACAO|ND|STUDIO|00:04:21.77|11025|880622cf-96fd-4211-850f-9f914a5244c6|T0391535844|BRSME9400075|BR|94|
+|  ...|...|...|...|..|..|...|...|...|...|...|...|...|...| 
+
+```
+feature_dir
+    /1
+        /19629.h5 
+        /23880.h5
+        /579191.h5
+        /...
+```   
+
+`acoss` methods benchmark can use the annotation csv file in the above given format.
+
+## Using the dataset
+
+### Downloading the data (feature files)
+
+CoversBR is publicly available on AWS. Check out the AWS Registry of Open Data for details. 
+
+The easiest way to access the data is through the [AWS Command Line Interface (CLI)](https://aws.amazon.com/pt/cli/). Follow that 
+link to setup and configure the AWS CLI. The CoversBR data is stored on the coversBR S3 bucket.
+Use the ftp application to download the whole structure.
+
+To list the content of the s3 bucket associated with CoversBR, run
+
+> aws s3 ls s3://coversBR
+
+There will be X files present:
+
+Download data using aws s3 sync <source> <target> [--options] or 
+aws s3 cp <source> <target> [--option]. For example, to download the 
+devkit to current directory run the following:
+
+> aws s3 cp s3://coversBR/YYY.tar.gz .
+
+All files are compressed archives and can be decompressed using gzip.
+
+### Using the feature files
+
+The features files of CoversBR ware generated by [acoss extractor](https://github.com/furkanyesiler/acoss/blob/master/acoss/extractors.py),
+so the usage is the same of it.
+
+CoversBR has used a different PROFILE to configure the parameters of extraction, then we did a fork of the original code 
+to allow some changes - [acoss-1](https://github.com/silvadirceu/acoss-1.git). 
+
+```
+git clone https://github.com/silvadirceu/acoss-1.git
+git checkout develop
+```
+
+This version of acoss uses [Ray](https://docs.ray.io/en/latest/using-ray.html) for multiprocessing, because 
+it allow to use the [SLURM](https://slurm.schedmd.com/overview.html) to run the code in a cluster.
+
+
+## Citing the dataset
+
+Please cite the following when using the dataset:
+
+> Dirceu Silva, Atila Xavier, Edgard Moraes, Marco Grivet and Fernando Perdigão. 
+> CoversBR: A Large Dataset for cover song identification. 
+> https://github.com/SPLab-IT/CoversBR
 
 ## License
 
