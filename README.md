@@ -46,13 +46,13 @@ MBID exists for about 50% of the songs in the database. The table below shows a
 summary of the CoversBR numbers. 
 
 <center>
-Number of songs with | Quantity
-:--------------------|--------:
-ISRC | 88926
-ISWC | 67322
-MBID | 50810
-Country | 92744
-Year | 88926
+|Number of songs with | Quantity|
+|:--------------------|--------:|
+|ISRC | 88926|
+|ISWC | 67322|
+|MBID | 50810|
+|Country | 92744|
+|Year | 88926|
 </center>
 
 The nationality and year of the songs were extracted from ISRC and, in cases 
