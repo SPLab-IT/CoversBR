@@ -111,7 +111,7 @@ The data shown in the figure correspond to 99% of the songs in the database.
 The main type is Studio, followed by live performances recorded by streaming.
 
 <!--- [](/images/histVersion.png) --->
-<img src="/images/histVersion.png" alt="drawing" width="60"/>
+<img src="/images/histVersion.png" alt="drawing" width="200"/>
 
 For design reasons, such as storage space, quality of compression /
 decompression of audio and royalties, all the songs from the base were recorded in the
