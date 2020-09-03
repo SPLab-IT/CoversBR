@@ -110,7 +110,7 @@ The figure below shows the histogram of absolute frequency by type of musical ve
 The data shown in the figure correspond to 99% of the songs in the database.
 The main type is Studio, followed by live performances recorded by streaming.
 
-![histVersion](/images/histVersion.png)
+![](/images/histVersion.png | width=60)
 
 For design reasons, such as storage space, quality of compression /
 decompression of audio and royalties, all the songs from the base were recorded in the
@@ -121,14 +121,14 @@ only 0.8%. There are three sources: RADIO CAPTURE, where the songs were obtained
 were provided by music labels; and CD, where the songs were copied
 Compact Disks (CDs).
 
-![pieSource](/images/pieSource2.png)
+![](/images/pieSource2.png)
 
 Note that many of the songs from the RADIO CAPTURE source were recorded in
 live presentations in noisy environments. The next histogram shows the absolute frequency of the duration of the song, whose average is 240 seconds, its
 standard deviation is 109 seconds and the minimum and maximum is 18 seconds and 28 minutes,
 respectively.
 
-![histDur](/images/histDur.png)
+![](/images/histDur.png)
 
 
 ### Pre-extracted features
