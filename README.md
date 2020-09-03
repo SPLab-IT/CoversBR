@@ -94,7 +94,7 @@ Years |# Songs
 The absolute frequency of the groups of covers (clicks) in
 function of the number of versions per group (tracks) can be seen below. 
 
-# Músicas por Cliques |# Cliques |Percentagem
+ Number of songs per Clique | Number of Cliques |Percentage
 ----------------------|----------|-----------
 2 | 14607 |55.40 %
 3 |2632 |9.98 %
