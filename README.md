@@ -1,29 +1,25 @@
-# CoversBR
+# CoversBR - A large dataset for Cover Song Identification
 CoversBR is the first large audio database with, predominantly, Brazilian music for 
-the cover song identification (CSI) or version identification (VI) and live song identification (LSI) tasks. 
+the Cover Song Identification (CSI) or Version Identification (VI) and Live Song Identification (LSI) tasks. 
 This work was carried out with the participation of [CETUC/PUC-Rio](http://www.cetuc.puc-rio.br/) 
-and with the support of [ECAD](https://www3.ecad.org.br/) (Central Bureau for Collection and Distribution), as it is the
-holder of the audio base and is responsible for capturing the audio at the shows and
-live events in Brazil.
+and with the support of [ECAD](https://www3.ecad.org.br/) (Central Bureau for Collection and Distribution) as 
+holder of the audio database and responsible for capturing the audio at the shows and live events in Brazil.
 
-CoversBR contains a large set of songs, with **pre-extracted features** 
-and **metadata** for **102,298 songs** distributed in **26,366 groups of covers**. The 
-entire collection adds up to a total of approximately 7070 hours, and the average 
-song length is 240.11 seconds (4 minutes). All audio files we use to extract features 
-are encoded in OGG format and their sample rate is 11 kHz. CoversBR does not contain 
-any audio files due copyrights restrictions.  
+CoversBR contains a large set of **pre-extracted features** and **metadata** from **102,298 songs**, 
+distributed in **26,366 groups of covers**. The entire collection adds up to a total of approximately 7070 hours. 
+The average song length is 240 seconds (4 minutes). CoversBR does not contain 
+any audio files due copyright restrictions.  
 
-For organizing the data, we use the structure of [SecondHandSongs](http://millionsongdataset.com/secondhand/) 
-where each song is called a **'track'**, and each clique (cover group) is called 
-a **'work'**. Based on this, the file names of the songs are their unique 
-performance IDs (PID, e.g. `22`), and their labels with respect to their 
-cliques are their work IDs (WID, e.g. `14`).
+For organizing the data, we use the structure of [SecondHandSongs](http://millionsongdataset.com/secondhand/), 
+where each song is called a **'track'** and each clique (cover group) is called 
+a **'work'**. Based on this, each entry song in the database has a unique 
+performance ID (PID, e.g. `22`), and a clique or work ID (WID, e.g. `14`).
 
 ## Dataset Description
 
 ### Database Metadata
-The file **CoversBR_metadata.csv** contains a semicolon (;) separated table of the 
-CoversBR database. **CoversBR_metadata.xlsx** is the MS Excell version of this file.
+The file **CoversBR_metadata.csv** is a semicolon (;) separated value table of the 
+CoversBR database coded in UTF-8. **CoversBR_metadata.xlsx** is the MS Excell version of this file.
 First line is the header line, with the following meaning:
 * work_id           - Music or musical work ID (also called group or clique)
 * Music_Name        - Music name
@@ -37,6 +33,8 @@ First line is the header line, with the following meaning:
 * [MBID](https://musicbrainz.org/doc/MusicBrainz_Identifier)             - Track MusicBrainz ID
 * [ISWC](http://iswc.org/)               - International Standard Musical Work Code
 * [ISRC](http://isrc.ifpi.org/)              - International Standard Recording Code
+* Country           - Country of the version
+* Year              - Year of version
 
 ### Dataset Statistics
 
@@ -57,12 +55,12 @@ summary of the CoversBR numbers.
 |Year | 88926|
 
 
-The nationality and year of the songs were extracted from ISRC and, in cases 
-where it is not available, the country was found from the name of the 
-performer or the song. The groups of covers were obtained from the ECAD 
+The country and year of the songs were extracted from ISRC. In cases 
+where country is not available, it was attributed from the name of the 
+performer of the song. The groups of covers were obtained from the ECAD 
 database, first using ISWC as the search key 
 (since all versions of the same work have the same code), and, in their 
-absence, the name of the song.
+absence, from the name of the song.
 
 About 41% of the database is composed of Brazilian music. The table below
 shows the distribution of the songs by country. There are 28 other nationalities in the
@@ -113,7 +111,7 @@ function of the number of versions per group (tracks) can be seen below.
 11 - 76 |1304 |4.95 %
 
 
-You can see in the table that the most cover groups contain between 2 and 10 versions. 
+You can see in the table that most cover groups contain between 2 and 10 versions. 
 Only in some cases there are between 11 and 76 versions per group.
 
 The figure below shows the histogram of absolute frequency by type of musical version.
@@ -126,12 +124,11 @@ The main type is Studio, followed by live performances recorded by streaming.
 </p>
 
 For design reasons, such as storage space, quality of compression /
-decompression of audio and royalties, all the songs from the base were recorded in the
-ogg-vorbis format with a sampling rate of 11025 Hz (99.95% of cases)
-or 16 kHz (0.05% of cases). The next figure presents a pie chart describing
-the source of the songs. The percentage of songs without source information is
+decompression of audio and royalties, all the songs of the database were recorded in the
+ogg-vorbis format with a sampling rate of 11025 Hz. The next figure presents a pie chart describing
+the source of the recordings. The percentage of songs without source information is
 only 0.8%. There are three sources: RADIO CAPTURE, where the songs were obtained from radio transmission over the streaming channel; IMPORT, where the songs
-were provided by music labels; and CD, where the songs were copied
+were provided by music labels; and CD, where the songs were copied from 
 Compact Disks (CDs).
 
 <!---[](/images/pieSource2.png)--->
@@ -154,7 +151,7 @@ respectively.
 
 The list of features included in CoversBR can be seen below. All the features are extracted with [acoss](https://github.com/furkanyesiler/acoss/blob/master/acoss/features.py) repository that uses open-source feature extraction libraries such as [Essentia](https://essentia.upf.edu/documentation/), [LibROSA](https://librosa.github.io/librosa/), and [Madmom](https://github.com/CPJKU/madmom).
 
-To facilitate the use of the dataset, we provide then in the following file structure.
+To facilitate the use of the dataset, we provide them in the following file structure.
 
 In `CoversBR` folders, we organize the data based on their respective cliques, and one file contains all the features for that particular song. 
 
@@ -232,7 +229,7 @@ feature_dir
 
 `acoss` methods benchmark can use the annotation csv file in the above given format.
 
-## Using the dataset
+## Using the dataset - Tutorial
 
 ### Downloading the data (feature files)
 
