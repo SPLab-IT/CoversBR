@@ -275,7 +275,7 @@ it allow to use the [SLURM](https://slurm.schedmd.com/overview.html) to run the 
 Please cite the following when using the dataset:
 
 > Dirceu Silva, Atila Xavier, Edgard Moraes, Marco Grivet and Fernando Perdigão. 
-> CoversBR: A Large Dataset for cover song identification. 
+> CoversBR: A Large Dataset for Cover Song Identification. 
 > https://github.com/SPLab-IT/CoversBR
 
 ## License
