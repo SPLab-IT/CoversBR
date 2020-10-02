@@ -241,15 +241,31 @@ Use the ftp application to download the whole structure.
 
 To list the content of the s3 bucket associated with CoversBR, run
 
-> aws s3 ls s3://coversBR
+> aws s3 ls s3://coversbr-logs/coversbr/
 
-There will be X files present:
+There will be 10 compressed files present:
+'''
+2020-10-01 07:24:56 74937445197 1x_1.tar.gz
+2020-09-30 18:08:21 75680811777 1x_2.tar.gz
+2020-09-29 10:36:39 59908740768 2x.tar.gz
+2020-09-29 08:33:40 28405821045 3x.tar.gz
+2020-09-29 04:02:58 24701830699 4x.tar.gz
+2020-09-28 17:43:04 76049114603 5x.tar.gz
+2020-09-28 15:37:20 32759249704 6x.tar.gz
+2020-09-28 13:42:52 22107663162 7x.tar.gz
+2020-09-28 12:31:18 11409833301 8x.tar.gz
+2020-09-28 11:50:14 10406317395 9x.tar.gz
+'''
+
+Each tar.gz file have all work_ID files that start with the number 1, 2, ..., 9.
+After decompress all files you will have 26366 new tar files -- <work_ID>.tar.gz. 
+Then you can use the file decompress.sh to get the h5 files in the directory structure showed above.
 
 Download data using aws s3 sync <source> <target> [--options] or 
-aws s3 cp <source> <target> [--option]. For example, to download the 
-devkit to current directory run the following:
+aws s3 cp <source> <target> [--option]. For example, to download all 
+data to current directory run the following:
 
-> aws s3 cp s3://coversBR/YYY.tar.gz .
+> aws s3 sync s3://coversbr-logs/ .
 
 All files are compressed archives and can be decompressed using gzip.
 
