@@ -244,7 +244,8 @@ To list the content of the s3 bucket associated with CoversBR, run
 > aws s3 ls s3://coversbr-logs/coversbr/
 
 There will be 10 compressed files present:
-'''
+
+```
 2020-10-01 07:24:56 74937445197 1x_1.tar.gz
 2020-09-30 18:08:21 75680811777 1x_2.tar.gz
 2020-09-29 10:36:39 59908740768 2x.tar.gz
@@ -255,7 +256,7 @@ There will be 10 compressed files present:
 2020-09-28 13:42:52 22107663162 7x.tar.gz
 2020-09-28 12:31:18 11409833301 8x.tar.gz
 2020-09-28 11:50:14 10406317395 9x.tar.gz
-'''
+```
 
 Each tar.gz file have all work_ID files that start with the number 1, 2, ..., 9.
 After decompress all files you will have 26366 new tar files -- <work_ID>.tar.gz. 
