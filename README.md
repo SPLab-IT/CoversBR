@@ -237,13 +237,12 @@ CoversBR is publicly available on AWS. Check out the AWS Registry of Open Data f
 
 The easiest way to access the data is through the [AWS Command Line Interface (CLI)](https://aws.amazon.com/pt/cli/). Follow that 
 link to setup and configure the AWS CLI. The CoversBR data is stored on the coversBR S3 bucket.
-Use the ftp application to download the whole structure.
 
-To list the content of the s3 bucket associated with CoversBR, run
+To list the content of the s3 bucket associated with CoversBR, run:
 
 > aws s3 ls s3://covers-song-br --no-sign-request
 
-There will be one folder and 1 file of metadata:
+There will be one folder and one metadata file:
 
 ```
 features-h5
