@@ -185,7 +185,7 @@ In `CoversBR` folders, we organize the data based on their respective cliques, a
 CoversBR uses the same structure of [acoss](https://github.com/furkanyesiler/acoss/blob/master/acoss/):
 
 ```
-feature_dir
+feature-h5
     /work_id
         /track_id.h5 
 ```   
@@ -219,7 +219,7 @@ The csv annotation file is differente from acoss pattern. Here there are more fi
 |  ...|...|...|...|..|..|...|...|...|...|...|...|...|...| 
 
 ```
-feature_dir
+feature-h5
     /1
         /19629.h5 
         /23880.h5
@@ -241,34 +241,21 @@ Use the ftp application to download the whole structure.
 
 To list the content of the s3 bucket associated with CoversBR, run
 
-> aws s3 ls s3://coversbr-logs/coversbr/
+> aws s3 ls s3://covers-song-br --no-sign-request
 
-There will be 10 compressed files present:
+There will be one folder and 1 file of metadata:
 
 ```
-2020-10-01 07:24:56 74937445197 1x_1.tar.gz
-2020-09-30 18:08:21 75680811777 1x_2.tar.gz
-2020-09-29 10:36:39 59908740768 2x.tar.gz
-2020-09-29 08:33:40 28405821045 3x.tar.gz
-2020-09-29 04:02:58 24701830699 4x.tar.gz
-2020-09-28 17:43:04 76049114603 5x.tar.gz
-2020-09-28 15:37:20 32759249704 6x.tar.gz
-2020-09-28 13:42:52 22107663162 7x.tar.gz
-2020-09-28 12:31:18 11409833301 8x.tar.gz
-2020-09-28 11:50:14 10406317395 9x.tar.gz
+features-h5
 ```
 
-Each tar.gz file have all work_ID files that start with the number 1, 2, ..., 9.
-After decompress all files you will have 26366 new tar files -- <work_ID>.tar.gz. 
-Then you can use the file decompress.sh to get the h5 files in the directory structure showed above.
+The folder features-h5 has all work_id subdir with its track_id uncompressed. 
 
 Download data using aws s3 sync <source> <target> [--options] or 
 aws s3 cp <source> <target> [--option]. For example, to download all 
 data to current directory run the following:
 
-> aws s3 sync s3://coversbr-logs/ .
-
-All files are compressed archives and can be decompressed using gzip.
+> aws s3 sync s3://covers-br . --no-sign-request
 
 ### Using the feature files
 
