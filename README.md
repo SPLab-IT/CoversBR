@@ -185,7 +185,7 @@ In `CoversBR` folders, we organize the data based on their respective cliques, a
 CoversBR uses the same structure of [acoss](https://github.com/furkanyesiler/acoss/blob/master/acoss/):
 
 ```
-feature-h5
+features-h5
     /work_id
         /track_id.h5 
 ```   
@@ -219,7 +219,7 @@ The csv annotation file is differente from acoss pattern. Here there are more fi
 |  ...|...|...|...|..|..|...|...|...|...|...|...|...|...| 
 
 ```
-feature-h5
+features-h5
     /1
         /19629.h5 
         /23880.h5
