@@ -247,15 +247,27 @@ There will be one folder and 1 file of metadata:
 
 ```
 features-h5
+CoversBR_metadata.csv
 ```
 
-The folder features-h5 has all work_id subdir with its track_id uncompressed. 
+The features-h5 folder contains all work_id with their track_id in h5 format. 
 
 Download data using aws s3 sync <source> <target> [--options] or 
 aws s3 cp <source> <target> [--option]. For example, to download all 
 data to current directory run the following:
 
-> aws s3 sync s3://covers-br . --no-sign-request
+> aws s3 sync s3://covers-song-br  .  --no-sign-request
+
+This operation will get a long time. The dataset has about 500 GB.
+
+if you want download only a specific work_id, run:
+
+> aws s3 cp s3://covers-song-br/features-h5/<work_id>  .  --no-sign-request
+
+The metadata can be downloaded using:
+
+> aws s3 cp s3://covers-song-br/CoversBR_metadata.csv  .  --no-sign-request
+
 
 ### Using the feature files
 
