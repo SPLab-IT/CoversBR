@@ -251,8 +251,8 @@ CoversBR_metadata.csv
 
 The features-h5 folder contains all work_id with their track_id in h5 format. 
 
-Download data using aws s3 sync <source> <target> [--options] or 
-aws s3 cp <source> <target> [--option]. For example, to download all 
+Download data using aws s3 sync `<source> <target>` [--options] or 
+aws s3 cp `<source> <target>` [--option]. For example, to download all 
 data to current directory run the following:
 
 > aws s3 sync s3://covers-song-br  .  --no-sign-request
