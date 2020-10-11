@@ -257,6 +257,10 @@ data to current directory run the following:
 
 > aws s3 sync s3://covers-song-br  .  --no-sign-request
 
+or
+
+> aws s3 cp s3://covers-song-br  .  --recursive --no-sign-request
+
 This operation will get a long time. The dataset has about 500 GB.
 
 if you want download only a specific work_id, to a folder with it's name in the local machine, run:
