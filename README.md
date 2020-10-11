@@ -259,9 +259,9 @@ data to current directory run the following:
 
 This operation will get a long time. The dataset has about 500 GB.
 
-if you want download only a specific work_id, run:
+if you want download only a specific work_id, to a folder with it's name in the local machine, run:
 
-> aws s3 cp s3://covers-song-br/features-h5/<work_id>  .  --no-sign-request
+> aws s3 cp s3://covers-song-br/features-h5/<work_id>  ./<work_id> --recursive --no-sign-request
 
 The metadata can be downloaded using:
 
