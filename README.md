@@ -233,7 +233,7 @@ features-h5
 
 ### Downloading the data (feature files)
 
-CoversBR is publicly available on AWS. Check out the AWS Registry of Open Data for details. 
+[CoversBR is publicly available on AWS](https://registry.opendata.aws/covers-br/). Check out the AWS Registry of Open Data for details. 
 
 The easiest way to access the data is through the [AWS Command Line Interface (CLI)](https://aws.amazon.com/pt/cli/). Follow that 
 link to setup and configure the AWS CLI. The CoversBR data is stored on the coversBR S3 bucket.
