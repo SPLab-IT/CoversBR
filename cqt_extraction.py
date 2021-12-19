@@ -49,6 +49,15 @@ def extract_and_save(src, dst):
     #with open(dst, 'wb') as f:
     #    np.save(f, constantq)
 
+def load_extracted_cqt(path):
+    cqt_list = glob.glob(f"{path}/*success.csv")
+
+    data = []
+    for file in cqt_list:
+        list = list(np.loadtxt(file, dtype=str))
+        data.extend(list)
+
+    return data
 
 if __name__ == "__main__":
     root = "/mnt/dev/dirceusilva/dados/Cover/CoversBR/Audios"
@@ -60,10 +69,6 @@ if __name__ == "__main__":
     pool = mp.Pool() #num_proc)
     pbar = tqdm.tqdm(total=len(fn_list))
 
-    files_saved_list = []
-    if osp.isfile('file_saved.pkl'):
-        with open('file_saved.pkl', 'rb') as f:
-            files_saved_list = pickle.load(f)
 
     def update_pbar(*a):
         pbar.update()
@@ -76,7 +81,7 @@ if __name__ == "__main__":
         track_id = track_id.split('.ogg')[0]
         dst = f"{feat_dir}/{work_id}/{track_id}.h5"
 
-        if not osp.isfile(dst) and not (dst in infiles_saved_list): ## for the halt recovering
+        if not osp.isfile(dst) and int(work_id) > 11979218: ## for the halt recovering
             pool.apply_async(extract_and_save, (src, dst), callback=update_pbar)
     pool.close()
     pool.join()
