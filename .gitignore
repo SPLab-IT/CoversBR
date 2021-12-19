@@ -131,3 +131,6 @@ dmypy.json
 .idea
 .idea/
 .idea/*
+
+copy
+extracted_cqt
